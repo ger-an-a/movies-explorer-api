@@ -9,6 +9,7 @@ const cors = require('cors');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/limiter');
+const { mongoUrl } = require('./utils/config');
 
 const { NODE_ENV, MONGO_URL } = process.env;
 
@@ -31,7 +32,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(NODE_ENV === 'prodaction' ? MONGO_URL : 'mongodb://localhost:27017/moviesdb', { useNewUrlParser: true });
+mongoose.connect(NODE_ENV === 'prodaction' ? MONGO_URL : mongoUrl, { useNewUrlParser: true });
 
 app.use(requestLogger);
 

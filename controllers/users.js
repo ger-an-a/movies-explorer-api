@@ -6,6 +6,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const RegisterError = require('../errors/RegisterError');
 const BadRequestError = require('../errors/BadRequestError');
 const LoginError = require('../errors/LoginError');
+const { secretKey } = require('../utils/config');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -50,7 +51,6 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => res.send({ data: user.toJSON() }))
     .catch((err) => {
       if (err.code === 11000) {
-        console.log(err);
         next(new RegisterError());
       } else if (err.name === 'ValidationError') {
         next(new BadRequestError());
@@ -67,7 +67,7 @@ module.exports.login = (req, res, next) => {
       if (user) {
         const token = jwt.sign(
           { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+          NODE_ENV === 'production' ? JWT_SECRET : secretKey,
           { expiresIn: '7d' },
         );
         res
