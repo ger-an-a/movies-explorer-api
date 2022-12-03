@@ -3,6 +3,8 @@ const AccessError = require('../errors/AccessError');
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
 
+const SUCCESS_MESSAGE_DELETE = require('../utils/constants');
+
 module.exports.getMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
     .then((movies) => res.send({ data: movies }))
@@ -48,7 +50,7 @@ module.exports.deleteMovie = (req, res, next) => {
           throw new AccessError();
         }
         return movie.remove()
-          .then(() => res.send({ message: 'Фильм удален' }));
+          .then(() => res.send({ message: SUCCESS_MESSAGE_DELETE }));
       }
     })
     .catch(next);

@@ -6,7 +6,9 @@ const NotFoundError = require('../errors/NotFoundError');
 const RegisterError = require('../errors/RegisterError');
 const BadRequestError = require('../errors/BadRequestError');
 const LoginError = require('../errors/LoginError');
+
 const { secretKey } = require('../utils/config');
+const { SUCCESS_MESSAGE_LOGIN, SUCCESS_MESSAGE_LOGOUT } = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -21,10 +23,10 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name },
+    { name, email },
     {
       new: true,
       runValidators: true,
@@ -38,6 +40,8 @@ module.exports.updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError());
+      } else if (err.code === 11000) {
+        next(new RegisterError());
       } else {
         next(err);
       }
@@ -75,14 +79,14 @@ module.exports.login = (req, res, next) => {
             maxAge: 3600000 * 24 * 7,
             httpOnly: true,
           })
-          .send({ massage: 'Выполнен вход' });
+          .send({ massage: SUCCESS_MESSAGE_LOGIN });
       } else throw new LoginError();
     })
     .catch(next);
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie('jwt').send({ massage: 'Выполнен выход' });
+  res.clearCookie('jwt').send({ massage: SUCCESS_MESSAGE_LOGOUT });
 };
 
 /*

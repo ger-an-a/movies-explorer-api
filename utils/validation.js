@@ -1,10 +1,11 @@
 const { celebrate, Joi } = require('celebrate');
+const isURL = require('validator/lib/isURL');
 
-const { regexUrl, regexRU, regexEN } = require('./constants');
+const { ERROR_MESSAGE400, regexRU, regexEN } = require('./constants');
 
 module.exports.signupValidator = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -24,10 +25,22 @@ module.exports.postMovieValidator = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(new RegExp(regexUrl)),
-    trailerLink: Joi.string().required().pattern(new RegExp(regexUrl)),
-    thumbnail: Joi.string().required().pattern(new RegExp(regexUrl)),
-    movieId: Joi.string().hex().length(24),
+    image: Joi.string().required().custom((value, helpers) => {
+      if (!isURL(value)) {
+        return helpers.message(ERROR_MESSAGE400);
+      } return value;
+    }),
+    trailerLink: Joi.string().required().custom((value, helpers) => {
+      if (!isURL(value)) {
+        return helpers.message(ERROR_MESSAGE400);
+      } return value;
+    }),
+    thumbnail: Joi.string().required().custom((value, helpers) => {
+      if (!isURL(value)) {
+        return helpers.message(ERROR_MESSAGE400);
+      } return value;
+    }),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required().pattern(new RegExp(regexRU)),
     nameEN: Joi.string().required().pattern(new RegExp(regexEN)),
   }),
@@ -35,7 +48,7 @@ module.exports.postMovieValidator = celebrate({
 
 module.exports.deleteMovieValidator = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().hex().length(24),
+    filmId: Joi.string().hex().length(24),
   }),
 });
 
