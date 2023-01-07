@@ -1,0 +1,17 @@
+module.exports.ERROR_CODE400 = 400;
+module.exports.ERROR_CODE401 = 401;
+module.exports.ERROR_CODE403 = 403;
+module.exports.ERROR_CODE404 = 404;
+module.exports.ERROR_CODE409 = 409;
+module.exports.ERROR_CODE500 = 500;
+module.exports.ERROR_MESSAGE400 = 'Переданы некорректные данные';
+module.exports.ERROR_MESSAGE401 = 'Неверный email или пароль';
+module.exports.ERROR_MESSAGE403 = 'Ошибка доступа';
+module.exports.ERROR_MESSAGE404 = 'Элемент не найден или передан неизвестный запрос';
+module.exports.ERROR_MESSAGE409 = 'email уже занят';
+module.exports.ERROR_MESSAGE500 = 'Произошла ошибка';
+module.exports.SUCCESS_MESSAGE_LOGIN = 'Выполнен вход';
+module.exports.SUCCESS_MESSAGE_LOGOUT = 'Выполнен выход';
+module.exports.SUCCESS_MESSAGE_DELETE = 'Фильм удален';
+module.exports.regexRU = /[^\w]+/;
+module.exports.regexEN = /[^а-я^ё]+/;
