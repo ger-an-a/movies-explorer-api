@@ -1,6 +1,6 @@
 const { mongoose, Schema } = require('mongoose');
 
-const { regexUrl, regexRU, regexEN } = require('../utils/constants');
+const { regexUrl } = require('../utils/constants');
 
 const movieSchema = new Schema({
   country: {
@@ -41,15 +41,6 @@ const movieSchema = new Schema({
       },
     },
   },
-  thumbnail: {
-    type: String,
-    required: true,
-    validate: {
-      validator(v) {
-        return regexUrl.test(v);
-      },
-    },
-  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
@@ -62,20 +53,10 @@ const movieSchema = new Schema({
   nameRU: {
     type: String,
     required: true,
-    validate: {
-      validator(v) {
-        return regexRU.test(v);
-      },
-    },
   },
   nameEN: {
     type: String,
     required: true,
-    validate: {
-      validator(v) {
-        return regexEN.test(v);
-      },
-    },
   },
 });
 

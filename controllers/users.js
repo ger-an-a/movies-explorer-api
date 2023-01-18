@@ -89,9 +89,7 @@ module.exports.logout = (req, res) => {
   res.clearCookie('jwt').send({ massage: SUCCESS_MESSAGE_LOGOUT });
 };
 
-/*
 module.exports.checkCookie = (req, res) => {
   if (req.cookies.jwt) res.send({ data: true });
   else res.send({ data: false });
 };
-*/
