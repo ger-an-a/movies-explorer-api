@@ -13,7 +13,7 @@ const { mongoUrl } = require('./utils/config');
 
 const { NODE_ENV, MONGO_URL } = process.env;
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const corsOptions = {
   origin: 'https://movies-ger.nomoredomains.club',
