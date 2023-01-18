@@ -14,10 +14,11 @@ module.exports.getMovies = (req, res, next) => {
 module.exports.createMovie = (req, res, next) => {
   const {
     country, director, duration, year, description,
-    image, trailerLink, nameRU, nameEN, thumbnail, movieId,
+    image, trailerLink, nameRU, nameEN, id,
   } = req.body;
   Movie.create({
     owner: req.user._id,
+    movieId: id,
     country,
     director,
     duration,
@@ -27,8 +28,6 @@ module.exports.createMovie = (req, res, next) => {
     trailerLink,
     nameRU,
     nameEN,
-    thumbnail,
-    movieId,
   })
     .then((movie) => res.send({ data: movie }))
     .catch((err) => {
@@ -41,7 +40,7 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.movieId)
+  Movie.findById(req.params.filmId)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError();
