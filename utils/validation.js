@@ -1,19 +1,19 @@
 const { celebrate, Joi } = require('celebrate');
 const isURL = require('validator/lib/isURL');
 
-const { ERROR_MESSAGE400 } = require('./constants');
+const { ERROR_MESSAGE400, REGEX_EMAIL } = require('./constants');
 
 module.exports.signupValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    email: Joi.string().required().email(),
+    email: Joi.string().required().pattern(REGEX_EMAIL),
     password: Joi.string().required(),
   }),
 });
 
 module.exports.signinValidator = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().required().pattern(REGEX_EMAIL),
     password: Joi.string().required(),
   }),
 });
@@ -49,7 +49,7 @@ module.exports.deleteMovieValidator = celebrate({
 
 module.exports.patchUserValidator = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().required().pattern(REGEX_EMAIL),
     name: Joi.string().required().min(2).max(30),
   }),
 });

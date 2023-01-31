@@ -1,6 +1,6 @@
 const { mongoose, Schema } = require('mongoose');
 
-const { regexUrl } = require('../utils/constants');
+const { REGEX_URL } = require('../utils/constants');
 
 const movieSchema = new Schema({
   country: {
@@ -28,7 +28,7 @@ const movieSchema = new Schema({
     required: true,
     validate: {
       validator(v) {
-        return regexUrl.test(v);
+        return REGEX_URL.test(v);
       },
     },
   },
@@ -37,7 +37,7 @@ const movieSchema = new Schema({
     required: true,
     validate: {
       validator(v) {
-        return regexUrl.test(v);
+        return REGEX_URL.test(v);
       },
     },
   },

@@ -9,14 +9,14 @@ const cors = require('cors');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/limiter');
-const { mongoUrl } = require('./utils/config');
+const { devMongoUrl, devOriginUrl, devPort } = require('./utils/config');
 
 const { NODE_ENV, MONGO_URL } = process.env;
 
-const { PORT = 3000 } = process.env;
+const { PORT = NODE_ENV === 'prodaction' ? 3000 : devPort } = process.env;
 
 const corsOptions = {
-  origin: 'https://movies-ger.nomoredomains.club',
+  origin: NODE_ENV === 'prodaction' ? 'https://movies-ger.nomoredomains.club' : devOriginUrl,
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(NODE_ENV === 'prodaction' ? MONGO_URL : mongoUrl, { useNewUrlParser: true });
+mongoose.connect(NODE_ENV === 'prodaction' ? MONGO_URL : devMongoUrl, { useNewUrlParser: true });
 
 app.use(requestLogger);
 

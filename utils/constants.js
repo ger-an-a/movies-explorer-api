@@ -13,4 +13,5 @@ module.exports.ERROR_MESSAGE500 = 'Произошла ошибка';
 module.exports.SUCCESS_MESSAGE_LOGIN = 'Выполнен вход';
 module.exports.SUCCESS_MESSAGE_LOGOUT = 'Выполнен выход';
 module.exports.SUCCESS_MESSAGE_DELETE = 'Фильм удален';
-module.exports.regexUrl = /https?:\/\/(www\.)?[.a-z\d-]{2,63}\.[a-z.]{2,6}(\/[\w\-.~:?#\][@!$&'()*+,;=/])*/;
+module.exports.REGEX_URL = /https?:\/\/(www\.)?[.a-z\d-]{2,63}\.[a-z.]{2,6}(\/[\w\-.~:?#\][@!$&'()*+,;=/])*/;
+module.exports.REGEX_EMAIL = /[A-Za-z0-9]+[A-Za-z0-9._%+-]*[A-Za-z0-9]+@[A-Za-z0-9]+[A-Za-z0-9-.]*[A-Za-z0-9]+[.][A-Za-z]{2,4}$/;
